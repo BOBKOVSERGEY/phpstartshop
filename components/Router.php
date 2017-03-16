@@ -2,15 +2,16 @@
 
 class Router
 {
-    private $routses;
+    private $routes;
 
     public function __construct()
     {
-
+        $routesPath = ROOT . '/config/routes.php';
+        $this->routes = include($routesPath);
     }
 
     public function run()
     {
-        echo 'Class Router method run';
+
     }
 }
