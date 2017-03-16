@@ -12,6 +12,7 @@ class Router
 
     public function run()
     {
-
+        print_r($this->routes);
+        echo 'Class Router method run';
     }
 }
