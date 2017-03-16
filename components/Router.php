@@ -38,8 +38,11 @@ class Router
 
                 $controllerName = array_shift($segments) . 'Controller'; // извлекаем первый элемент массива
                 $controllerName = ucfirst($controllerName);
-                echo $controllerName;
 
+                $actionName = 'action' . ucfirst(array_shift($segments));
+
+                echo '<br>Класс: ' .$controllerName;
+                echo '<br>Метод: ' .$actionName;
             }
         }
 
