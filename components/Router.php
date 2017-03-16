@@ -44,23 +44,23 @@ class Router
 
                 $actionName = 'action' . ucfirst(array_shift($segments));
 
-                echo '<br>Класс: ' . $controllerName;
-                echo '<br>Метод: ' . $actionName;
+                // Подключить файл класса контроллера
+
+                    $controllerFile = ROOT . '/controllers/' .
+                        $controllerName . '.php';
+                    if (file_exists($controllerFile)) {
+                        include_once($controllerFile);
+                    }
+
+                // Создать объект, вызвать метод(т.е action)
+                $controllerObject = new $controllerName;
+                $result = $controllerObject->$actionName();
+
+                if ($result != null) {
+                    break;
+                }
             }
         }
-
-
-        // Подключить файл класса контроллера
-        if (isset($controllerName)) {
-            $controllerFile = ROOT . '/controllers/' .
-                $controllerName . '.php';
-            if (file_exists($controllerFile)) {
-                include_once($controllerFile);
-            }
-        }
-
-
-        // Создать объект, вызвать метод(т.е action)
 
     }
 }
