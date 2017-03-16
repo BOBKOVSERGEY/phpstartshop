@@ -21,6 +21,9 @@ class Router
         }
     }
 
+    /**
+     *
+     */
     public function run()
     {
         // Получить строку запроса
@@ -41,15 +44,21 @@ class Router
 
                 $actionName = 'action' . ucfirst(array_shift($segments));
 
-                echo '<br>Класс: ' .$controllerName;
-                echo '<br>Метод: ' .$actionName;
+                echo '<br>Класс: ' . $controllerName;
+                echo '<br>Метод: ' . $actionName;
             }
         }
 
-        // Если есть совпадение,определить какой контроллер
-        // и action обрабатывают запрос
 
         // Подключить файл класса контроллера
+        if (isset($controllerName)) {
+            $controllerFile = ROOT . '/controllers/' .
+                $controllerName . '.php';
+            if (file_exists($controllerFile)) {
+                include_once($controllerFile);
+            }
+        }
+
 
         // Создать объект, вызвать метод(т.е action)
 
