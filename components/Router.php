@@ -35,23 +35,25 @@ class Router
             // Сравниваем $uriPattern и $uri
             if (preg_match("~$uriPattern~", $uri)) {
 
-                echo '<br> Где ищем(запрос, который набрал пользователь): ' . $uri;
-                echo '<br> Что ищем(совпадение из правила): ' . $uriPattern;
-                echo '<br> Кто обрабатывает: ' . $path;
-
                 // Получаем внутренний путь из внешнего согласно правилу
                 $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
 
-                echo '<br><br> Нужно сформировать :' . $internalRoute;
-
-                // Определить какой контроллер
-                // и action обрабатывают этот запрос
-                $segments = explode('/', $path);
+                // Определить контроллер, action, параметры
+                $segments = explode('/', $internalRoute);
 
                 $controllerName = array_shift($segments) . 'Controller'; // извлекаем первый элемент массива
                 $controllerName = ucfirst($controllerName);
 
                 $actionName = 'action' . ucfirst(array_shift($segments));
+
+
+                echo '<br> controller name: ' . $controllerName;
+                echo '<br> action name: ' . $actionName;
+
+                $parameters = $segments;
+                echo '<pre>';
+                print_r($parameters);
+                die;
 
                 // Подключить файл класса контроллера
 
