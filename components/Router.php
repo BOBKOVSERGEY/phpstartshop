@@ -35,6 +35,15 @@ class Router
             // Сравниваем $uriPattern и $uri
             if (preg_match("~$uriPattern~", $uri)) {
 
+                echo '<br> Где ищем(запрос, который набрал пользователь): ' . $uri;
+                echo '<br> Что ищем(совпадение из правила): ' . $uriPattern;
+                echo '<br> Кто обрабатывает: ' . $path;
+
+                // Получаем внутренний путь из внешнего согласно правилу
+                $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
+
+                echo '<br><br> Нужно сформировать :' . $internalRoute;
+
                 // Определить какой контроллер
                 // и action обрабатывают этот запрос
                 $segments = explode('/', $path);
