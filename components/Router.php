@@ -46,14 +46,8 @@ class Router
 
                 $actionName = 'action' . ucfirst(array_shift($segments));
 
-
-                echo '<br> controller name: ' . $controllerName;
-                echo '<br> action name: ' . $actionName;
-
                 $parameters = $segments;
-                echo '<pre>';
-                print_r($parameters);
-                die;
+
 
                 // Подключить файл класса контроллера
 
@@ -65,7 +59,8 @@ class Router
 
                 // Создать объект, вызвать метод(т.е action)
                 $controllerObject = new $controllerName;
-                $result = $controllerObject->$actionName();
+
+                $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
 
                 if ($result != null) {
                     break;
