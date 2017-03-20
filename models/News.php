@@ -4,20 +4,24 @@ class News
 {
     public static function getNewsItemById($id)
     {
+        $id = intval($id);
+        if ($id) {
+
+            $result = $db->query('SELECT * FROM news WHERE id=' . $id);
+
+            //$result->setFetchMode(PDO::FETCH_NUM); // оставляем индексы в виде нумеров колонок
+            $result->setFetchMode(PDO::FETCH_ASSOC); // оставляем индексы в виде ключей
+
+            $newsItem = $result->fetch();
+
+            return $newsItem;
+        }
 
     }
 
     public static function getNewsList()
     {
-        $host = 'localhost';
-        $dbname = 'mvc_site';
-        $user = 'root';
-        $password = ''; /*
- ================== Задаем параметры соединения с БД =========== */
-
-        $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password); /*
- ================== Создаем объект класса ПДО передав в конструктор параметры соединения =====*/
-
+        $db = Db::getConnection();
         $newsList = []; /*
  =========== Создаем пустой массив для результатов ===========*/
 
